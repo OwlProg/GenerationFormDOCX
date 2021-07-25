@@ -3,53 +3,116 @@
   <head>
     <meta charset="utf-8">
     <title>FormGenerator</title>
-    <link href="style.css" rel="stylesheet" type="text/css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Staatliches&display=swap"
+    rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
+  <link href="style.css" rel="stylesheet" type="text/css">
   </head>
   <body>
-    <h1>Введите данные</h1>
-    <form action="/generate.html" method="post">
-      <h2>Основная информация</h2>
-      <label>To/Кому</label><br/>
-      <input type="text" name="To"/><br/><br/>
 
-      <label>From/От кого</label><br/>
-      <input type="text" name="From"/><br/><br/>
+    <div class="container">
+      <img src="../Logo1.png" alt="Sealed Air">
+      <img src="../Logo2.png" alt="Sealed Air">
+      <h1>Форма для отчёта</h1>
+      <form action="/generate.html" method="post">
+        <h2>Основная информация</h2>
 
-      <label>Date/Дата</label><br/>
-      <input type="date" name="Date"/><br/><br/>
+        <div class="forms">
+          <label>To/Кому</label>
+          <input type="text" name="To"/>
 
-      <label>Customer/Клиент</label><br/>
-      <input type="text" name="Customer"/><br/><br/>
+          <label>From/От кого</label>
+          <input type="text" name="From"/>
 
-      <label>Equipment/Оборудование</label><br/>
-      <input type="text" name="EquipmentMain"/><br/><br/>
+          <label>Date/Дата</label>
+          <input type="date" name="Date"/>
 
-      <label>Materials/Материалы</label><br/>
-      <input type="text" name="Materials"/><br/><br/>
+          <label>Customer/Клиент</label>
+          <input type="text" name="Customer"/>
 
-      <!--<h2>Цель приезда</h2>
-      <input type="text" name="PurposeOfArrival"/><br/><br/>
+          <label>Equipment/Оборудование</label>
+          <input type="text" name="EquipmentMain"/>
 
-      <h2>Условия проведения работ</h2>
-      <label>Оборудование</label><br/>
-      <input type="text" name="Equipment"/><br/><br/>
-      <label>Продукт</label><br/>
-      <input type="text" name="Product"/><br/><br/>
-      <label>Температура в цеху</label><br/>
-      <input type="text" name="Temperature"/><br/><br/>
-      <label>Состояние упаковочных материалов</label><br/>
-      <input type="text" name="StatusOfMaterials"/><br/><br/>
+          <label>Materials/Материалы</label>
+          <input type="text" name="Materials"/>
+        </div>
 
-      <h2>Цель приезда</h2>
-      <input type="text" name="PurposeOfArrival"/><br/><br/>
+        <h2>Цель приезда</h2>
+        <div class="forms">
+          <textarea type="text" rows="4" cols="50" name="PurposeOfArrival" spellcheck="true"></textarea>
+        </div>
 
-      <h2>Данные по материалам</h2>
-      <input type="text" name="DataOnMaterials"/><br/><br/>
+        <h2>Условия проведения работ</h2>
+        <div class="forms">
+          <label>Оборудование</label><br/>
+          <input type="text" name="Equipment"/>
+          <label>Продукт</label>
+          <input type="text" name="Product"/>
+          <label>Температура в цеху</label>
+          <input type="text" name="Temperature"/>
+          <label>Состояние упаковочных материалов</label>
+          <input type="text" name="StatusOfMaterials" spellcheck="true"/>
+        </div>
 
-      <h2>Настройки оборудования</h2> -->
+        <h2>Данные по материалам</h2>
+        <div class="forms">
+          <textarea type="text" rows="4" cols="50" name="DataOnMaterials" spellcheck="true"></textarea>
+        </div>
 
-      <input type="submit" value="Сгенерировать"/>
-    </form>
+        <h2>Настройки оборудования</h2>
+        <h3>Формование</h3>
+        <div class="forms">
+          <label>Нагрев</label>
+          <input type="text" name="Heating"/>
+          <label>Давление нагрева</label>
+          <input type="text" name="HeatingPressure"/>
+          <label>Формование</label>
+          <input type="text" name="Molding"/>
+          <label>Форм. уст. давление</label>
+          <input type="text" name="Pressure"/>
+          <label>Температура (верх)</label>
+          <input type="text" name="TemperatureTop"/>
+          <label>Температура (низ)</label>
+          <input type="text" name="TemperatureLow"/>
+        </div>
+
+        <h3>Сварка</h3>
+        <div class="forms">
+          <label>Запечатывание</label>
+          <input type="text" name="Sealing"/>
+          <label>Задержка вентиляции</label>
+          <input type="text" name="VentilationDelay"/>
+          <label>Температура сварки</label><br/>
+          <input type="text" name="WeldingTemperature"/>
+          <label>Газовая смесь</label><br/>
+          <input type="text" name="GasMixture"/>
+        </div>
+
+        <h3>Параметры формы</h3>
+        <div class="forms">
+          <label>Формат</label>
+          <input type="text" name="Format"/>
+          <label>Ячейка</label>
+          <input type="text" name="Cell"/>
+        </div>
+
+
+        <h2>Результат</h2>
+        <div class="forms">
+          <textarea type="text" rows="4" cols="50" name="Result" spellcheck="true"></textarea>
+        </div>
+
+        <h2>Выводы</h2>
+        <div class="forms">
+          <textarea type="text" rows="4" cols="50" name="Conclusion" spellcheck="true"></textarea>
+
+          <input type="submit" class="button" value="Сгенерировать"/>
+       </div>
+      </form>
+    </div>
 
     <!--<script type="module" src="main.js"></script>-->
   </body>

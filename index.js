@@ -6,9 +6,14 @@ const { Packer, HeadingLevel } = docx;
 const express = require('express');
 const bodyParser = require('body-parser')
 const fs = require('fs');
+const path = require('path');
+let converter = require('docx-pdf');
+const unoconv = require('awesome-unoconv');
 
 // DATA
-let To, From, Date, Customer, EquipmentMain, Materials, PurposeOfArrival, Equipment, Product, Temperature, StatusOfMaterials, DataOnMaterials, Result, Conclusion
+let To, From, Date, Customer, EquipmentMain, Materials, PurposeOfArrival, Equipment, Product, Temperature, StatusOfMaterials, DataOnMaterials
+let Result, Conclusion
+let Heating, HeatingPressure, Molding, Pressure, TemperatureTop, TemperatureLow, Sealing, VentilationDelay, WeldingTemperature, GasMixture, Format, Cell
 
 function Generate() {
 
@@ -435,7 +440,7 @@ function Generate() {
                             type: docx.WidthType.DXA,
                         },
                         children: [new docx.Paragraph({
-                            text: "TestTestTest",
+                            text: `${Heating}`,
                             style: "second-table-text"
                         })],
                     }),
@@ -455,7 +460,7 @@ function Generate() {
                             type: docx.WidthType.DXA,
                         },
                         children: [new docx.Paragraph({
-                            text: "TestTestTest",
+                            text: `${Sealing}`,
                             style: "second-table-text"
                         })],
                     }),
@@ -480,7 +485,7 @@ function Generate() {
                             type: docx.WidthType.DXA,
                         },
                         children: [new docx.Paragraph({
-                            text: "TestTestTest",
+                            text: `${HeatingPressure}`,
                             style: "second-table-text"
                         })],
                     }),
@@ -500,7 +505,7 @@ function Generate() {
                             type: docx.WidthType.DXA,
                         },
                         children: [new docx.Paragraph({
-                            text: "TestTestTest",
+                            text: `${VentilationDelay}`,
                             style: "second-table-text"
                         })],
                     }),
@@ -525,7 +530,7 @@ function Generate() {
                             type: docx.WidthType.DXA,
                         },
                         children: [new docx.Paragraph({
-                            text: "TestTestTest",
+                            text: `${Molding}`,
                             style: "second-table-text"
                         })],
                     }),
@@ -545,7 +550,7 @@ function Generate() {
                             type: docx.WidthType.DXA,
                         },
                         children: [new docx.Paragraph({
-                            text: "TestTestTest",
+                            text: `${WeldingTemperature}`,
                             style: "second-table-text"
                         })],
                     }),
@@ -570,7 +575,7 @@ function Generate() {
                             type: docx.WidthType.DXA,
                         },
                         children: [new docx.Paragraph({
-                            text: "TestTestTest",
+                            text: `${Pressure}`,
                             style: "second-table-text"
                         })],
                     }),
@@ -590,7 +595,7 @@ function Generate() {
                             type: docx.WidthType.DXA,
                         },
                         children: [new docx.Paragraph({
-                            text: "TestTestTest",
+                            text: `${GasMixture}`,
                             style: "second-table-text"
                         })],
                     }),
@@ -615,7 +620,7 @@ function Generate() {
                             type: docx.WidthType.DXA,
                         },
                         children: [new docx.Paragraph({
-                            text: "TestTestTest",
+                            text: `${TemperatureTop}`,
                             style: "second-table-text"
                         })],
                     }),
@@ -652,7 +657,7 @@ function Generate() {
                             type: docx.WidthType.DXA,
                         },
                         children: [new docx.Paragraph({
-                            text: "TestTestTest",
+                            text: `${TemperatureLow}`,
                             style: "second-table-text"
                         })],
                     }),
@@ -672,7 +677,7 @@ function Generate() {
                             type: docx.WidthType.DXA,
                         },
                         children: [new docx.Paragraph({
-                            text: "TestTestTest",
+                            text: `${Format}`,
                             style: "second-table-text"
                         })],
                     }),
@@ -687,7 +692,7 @@ function Generate() {
                             type: docx.WidthType.DXA,
                         },
                         children: [new docx.Paragraph({
-                            text: "TestTestTest",
+                            text: "",
                             style: "second-table-text"
                         })],
                     }),
@@ -697,7 +702,7 @@ function Generate() {
                             type: docx.WidthType.DXA,
                         },
                         children: [new docx.Paragraph({
-                            text: "TestTestTest",
+                            text: "",
                             style: "second-table-text"
                         })],
                     }),
@@ -717,7 +722,7 @@ function Generate() {
                             type: docx.WidthType.DXA,
                         },
                         children: [new docx.Paragraph({
-                            text: "TestTestTest",
+                            text: `${Cell}`,
                             style: "second-table-text"
                         })],
                     }),
@@ -839,7 +844,7 @@ function Generate() {
                 },
                 {
                     id: "second-table-text",
-                    name: "Secont Table Text",
+                    name: "Second Table Text",
                     run: {
                         size: 24,
                         font: {
@@ -918,7 +923,7 @@ function Generate() {
                     heading: HeadingLevel.HEADING_2,
                 }),
                 new docx.Paragraph({
-                    text: "TestTestTest",
+                    text: `${PurposeOfArrival}`,
                     style: "text"
                 }),
                 new docx.Paragraph("\n"),
@@ -927,24 +932,24 @@ function Generate() {
                     heading: HeadingLevel.HEADING_2,
                 }),
                 new docx.Paragraph({
-                    text: "•  Оборудование:",
+                    text: `•  Оборудование: ${Equipment}`,
                     style: "textH2"
                 }),
                 new docx.Paragraph({
-                    text: "•  Продукт:",
+                    text: `•  Продукт: ${Product}`,
                     style: "textH2"
                 }),
                 new docx.Paragraph({
-                    text: "•  Температура в цеху: ℃",
+                    text: `•  Температура в цеху: ${Temperature}℃`,
                     style: "textH2"
                 }),
                 new docx.Paragraph({
-                    text: "•  Состояние упаковочных материалов:",
+                    text: `•  Состояние упаковочных материалов: ${StatusOfMaterials}`,
                     style: "textH2"
                 }),
                 new docx.Paragraph("\n"),
                 new docx.Paragraph({
-                    text: "Данные по материалам",
+                    text: `Данные по материалам\n ${DataOnMaterials}`,
                     style: "textH2"
                 }),
                 new docx.Paragraph("\n"),
@@ -959,7 +964,7 @@ function Generate() {
                     heading: HeadingLevel.HEADING_2,
                 }),
                 new docx.Paragraph({
-                    text: "TestTestTest",
+                    text: `${Result}`,
                     style: "text"
                 }),
                 new docx.Paragraph("\n"),
@@ -968,9 +973,28 @@ function Generate() {
                     heading: HeadingLevel.HEADING_2,
                 }),
                 new docx.Paragraph({
-                    text: "TestTestTest",
+                    text: `${Conclusion}`,
                     style: "text"
                 }),
+                // new docx.Paragraph({
+                //     children: [
+                //         new docx.ImageRun({
+                //             data: fs.readFileSync("Logo1.png"),
+                //             transformation: {
+                //                 width: 202,
+                //                 height: 44,
+                //             },
+                //             // floating: {
+                //             //     horizontalPosition: {
+                //             //         offset: 2014400,
+                //             //     },
+                //             //     verticalPosition: {
+                //             //         offset: 0,
+                //             //     },
+                //             // },
+                //         }),
+                //     ],
+                // }),
             ],
         }]
     });
@@ -978,7 +1002,6 @@ function Generate() {
     Packer.toBuffer(doc).then((buffer) => {
         fs.writeFileSync("Doc.docx", buffer)
     })
-
 }
 
 const app = express()
@@ -1001,26 +1024,53 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html')
 });
 
-app.get('/generate.html', urlencodedParser, (req, res) => {
-    Generate()
-});
-
 app.post('/generate.html', urlencodedParser, function (
     request,
-    response
-  ) {
+    response) {
     if (!request.body) return response.sendStatus(400)
     console.log(request.body)
     response.send(
-      `${request.body.To} - ${request.body.From}`
+      "Form has been genereated succesfully"
     )
+
     To = request.body.To
     From = request.body.From
     Date = request.body.Date
     Customer = request.body.Customer
     EquipmentMain = request.body.EquipmentMain
     Materials = request.body.Materials
+    
+    PurposeOfArrival = request.body.PurposeOfArrival
+    Equipment = request.body.Equipment
+    Product = request.body.Product
+    Temperature = request.body.Temperature
+    StatusOfMaterials = request.body.StatusOfMaterials
+    DataOnMaterials = request.body.DataOnMaterials
 
+    Heating = request.body.Heating
+    HeatingPressure = request.body.HeatingPressure
+    Molding = request.body.Molding
+    Pressure = request.body.Pressure
+    TemperatureTop = request.body.TemperatureTop
+    TemperatureLow = request.body.TemperatureLow
+    Sealing = request.body.Sealing
+    VentilationDelay = request.body.VentilationDelay
+    WeldingTemperature = request.body.WeldingTemperature
+    GasMixture = request.body.GasMixture
+    Format = request.body.Format
+    Cell = request.body.Cell
 
+    Result = request.body.Result
+    Conclusion = request.body.Conclusion
+    
     Generate()
-  })
+
+    console.log("Lol")
+
+    converter('Doc.docx', 'output.pdf', (err, result) => {
+        if (err) {
+            console.log("Converting Doc to PDF failed", err);
+        }
+        console.log("Converting Doc to PDF succesfull", result);
+    });
+})
